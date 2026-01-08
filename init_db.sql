@@ -13,4 +13,4 @@ VALUES
 ('Erika', 'Schmidt', '1992-11-03', 'Goethestraße 42', 'München', '80331'),
 ('Thomas', 'Müller', '1978-02-15', 'Feldweg 7', 'Hamburg', '20095'),
 ('Sarah', 'Wagner', '2000-08-25', 'Am Hang 12', 'Köln', '50667'),
-('Andreas', 'Bauer', '1965-12-30', 'Marktplatz 3', 'Leipzig', '04109');"
+('Andreas', 'Bauer', '1965-12-30', 'Marktplatz 3', 'Leipzig', '04109');
