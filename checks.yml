@@ -1,0 +1,14 @@
+checks for user_data:
+  - row_count > 0:
+      name: "table not empty"
+  - missing_count(id) = 0:
+      name: "has all ids"
+  - invalid_count(zip) = 0:
+      invalid regex: ^(?!^[0-9]{5}$).*
+      name: "no invalid zips"
+
+discover datasets:
+  datasets:
+    - public%
+    - user_data%
+    - test_tabelle%

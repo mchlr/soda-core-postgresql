@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: soda_postgres
+    environment:
+      POSTGRES_USER: soda
+      POSTGRES_PASSWORD: soda123
+      POSTGRES_DB: sodadb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U soda"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  soda-core:
+    image: sodadata/soda-core:v3.0.32
+    container_name: soda_core
+    depends_on:
+      postgres:
+        condition: service_healthy
+    working_dir: /app
+    volumes:
+      - ./configuration.yml:/app/configuration.yml:ro
+      - ./checks.yml:/app/checks.yml:ro
+    entrypoint: ["soda", "scan", "-d", "postgres_db", "-c", "configuration.yml", "checks.yml"]
+
+volumes:
+  postgres_data:
+
