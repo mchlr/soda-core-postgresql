@@ -6,7 +6,13 @@ Quickstart for Soda Core /w PostgreSQL
 - Use `docker compose down -v` to shut down and remove the containers.
 
 ### Database 
-- Use `docker exec -it <id> /bin/bash` to run bash in postgresql. 
-- Then use `psql -U soda -d postgres` to connect to the DB.
-- Use `\dt` to show all tables
-- If there is **no data** use the `init_db.sql` script to add demo data to postgres.
+- Use `docker exec -it soda_postgres psql -U soda -d postgres -c "SELECT * FROM user_data;"` to see the example data.
+
+- Use `docker exec -it soda_postgres /bin/bash` to run bash in postgresql. 
+    - Then use `psql -U soda -d postgres` to connect to the DB.
+    - Use `\dt` to show all tables
+    - Use `SELECT * FROM user_data;` to see the data. **DOES NOT WORK IF YOU FORGET THE `;`!**
+
+
+
+
