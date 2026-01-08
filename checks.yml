@@ -1,14 +1,26 @@
 checks for user_data:
-  - row_count > 0:
-      name: "table not empty"
-  - missing_count(id) = 0:
-      name: "has all ids"
+  # 1. Completeness
+  - missing_count(email) = 0:
+      name: Alle User müssen eine E-Mail Adresse haben
+
+  # 2. Consistency & Validity
+  - invalid_count(email) = 0:
+      valid format: email # Soda Core Format!
+      name: Fehlerhafte E-Mail Adresse
+
   - invalid_count(zip) = 0:
-      invalid regex: ^(?!^[0-9]{5}$).*
-      name: "no invalid zips"
+      valid regex: "^[0-9]{5}$"
+      name: Nur gültige PLZ erlauben
+
+  # 3. Accuracy: Prüfen ob Geburtsdatum in der Zukunft liegt
+  - failed rows:
+      name: Geburtsdatum darf nicht in der Zukunft liegen
+      fail condition: birthday > CURRENT_DATE
+
+  # 4. Timeliness
+  - freshness(updated_at) < 24h:
+      name: Die Daten wurden in den letzten 24 Stunden nicht aktualisiert
 
 discover datasets:
   datasets:
-    - public%
     - user_data%
-    - test_tabelle%
