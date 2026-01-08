@@ -6,3 +6,8 @@ data_source postgres_db:
   password: soda123
   database: postgres
   schema: public
+
+soda_cloud:
+  host: cloud.soda.io
+  api_key_id: <key-id>
+  api_key_secret: <secret>
