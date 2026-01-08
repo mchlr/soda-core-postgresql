@@ -7,13 +7,14 @@ services:
     environment:
       POSTGRES_USER: soda
       POSTGRES_PASSWORD: soda123
-      POSTGRES_DB: sodadb
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U soda"]
+      test: ["CMD-SHELL", "pg_isready -U soda -d postgres"]
       interval: 5s
       timeout: 3s
       retries: 5
